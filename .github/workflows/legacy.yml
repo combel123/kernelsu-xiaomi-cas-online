@@ -25,12 +25,13 @@ jobs:
         git clone --depth 1 --branch 7.1.0 https://github.com/UtsavBalar1231/kernel_xiaomi_sm8250.git
            
         mv kernel_xiaomi_sm8250 source
+        git clone https://github.com/CoolestEnoch/xiaomi-10-ultra-kernel
+        mv xiaomi-10-ultra-kernel source2
   
+
+        sudo cp /source2/libdebuginfod.so.1 /source/usr/lib
         cd source
-        
-        #sudo cp ./libdebuginfod.so.1 /usr/lib
-        
-        #sudo chmod 777 /usr/lib/libdebuginfod.so.1
+        sudo chmod 777 /usr/lib/libdebuginfod.so.1
       
         echo "[+] Append kernel params to kprobes"
         echo "CONFIG_KPROBES=y" >> arch/arm64/configs/vendor/umi_defconfig
