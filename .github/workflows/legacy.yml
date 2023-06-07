@@ -33,23 +33,26 @@ jobs:
         sudo chmod 777 /usr/lib/libdebuginfod.so.1
       
         echo "[+] Append kernel params to kprobes"
-        echo "CONFIG_KPROBES=y" >> arch/arm64/configs/vendor/umi_defconfig
-        echo "CONFIG_HAVE_KPROBES=y" >> arch/arm64/configs/vendor/umi_defconfig
-        echo "CONFIG_KPROBE_EVENTS=y" >> arch/arm64/configs/vendor/umi_defconfig
+        echo "CONFIG_KPROBES=y" >> arch/arm64/configs/umi_defconfig
+        echo "CONFIG_HAVE_KPROBES=y" >> arch/arm64/configs/umi_defconfig
+        echo "CONFIG_KPROBE_EVENTS=y" >> arch/arm64/configs/umi_defconfig
+        echo "CONFIG_KPROBE_EVENTS=y" >> arch/arm64/configs/umi_defconfig
+        echo "CONFIG_OVERLAY_FS=y" >> arch/arm64/configs/umi_defconfig
 
-        git clone https://github.com/tiann/KernelSU
-        cd KernelSU
-        git stash && git pull
-        cd ..
-        cp -r KernelSU/kernel drivers/kernelsu
+        #git clone https://github.com/tiann/KernelSU
+        #cd KernelSU
+        curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.6.0
+        #git stash && git pull
+        #cd ..
+        #cp -r KernelSU/kernel drivers/kernelsu
 
-        echo "[+] Add kernel su driver to Makefile"
+        #echo "[+] Add kernel su driver to Makefile"
 
-        echo "obj-y += kernelsu/" >> drivers/Makefile
+        #echo "obj-y += kernelsu/" >> drivers/Makefile
         
-        echo "ccflags-y += -std=gnu11" >> drivers/kernelsu/Makefile
+        #echo "ccflags-y += -std=gnu11" >> drivers/kernelsu/Makefile
 
-        echo "[+] Done."
+        #echo "[+] Done."
         
         cd ..
         
